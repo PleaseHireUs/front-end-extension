@@ -11,5 +11,5 @@ if(greenHouseRegex.test(currentUrl)){
 }
 submitButton.addEventListener('click', function() {
     time = Date.now()
-    if 
 });
+
