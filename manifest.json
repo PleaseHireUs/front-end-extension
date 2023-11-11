@@ -1,23 +1,21 @@
 {
-    "name": "Job-app saver",
-    "version": "1.0.0",
-    "manifest_version": 3,
-    "default_locale": "en",
-    "description": "This extension is used to capture the job applications submitted and save it to a database",
-    "author": "Madhacks team: PleaseHireUs",
-    "action": {
-        "default_icon":{
-
-        }
-    },
-    "background":{
-        "service_worker": "background.js",
-        "type": "module"
-    },
-    "content_scripts": [
-        {
-            "matches": ["*://boards.greenhouse.io/*"],
-            "js": ["content.js"]
-        }
-    ]
+  "name": "Job-app saver",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "This extension is used to capture the job applications submitted and save it to a database",
+  "author": "Madhacks team: PleaseHireUs",
+  "action": {
+    "default_icon": "extension_image.png",
+    "default_popup": "index.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://boards.greenhouse.io/*"],
+      "js": ["content.js"]
+    }
+  ]
 }
