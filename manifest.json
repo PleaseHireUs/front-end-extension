@@ -14,7 +14,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://boards.greenhouse.io/*"],
+      "matches": ["https://boards.greenhouse.io/*"],
       "js": ["content.js"]
     }
   ]
