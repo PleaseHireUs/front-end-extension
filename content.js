@@ -21,4 +21,4 @@ submitButton.addEventListener('click', function() {
     };
     let result = JSON.stringify(jsonObject);
     console.log(result)
-
+});
