@@ -9,13 +9,13 @@
     "default_popup": "index.html"
   },
   "background": {
-    "service_worker": "service_worker.js",
-    "type": "module"
+    "service_worker": "service-worker.js"
   },
   "content_scripts": [
     {
       "matches": ["https://boards.greenhouse.io/*"],
       "js": ["content.js"]
     }
-  ]
+  ],
+  "permissions":["tabs","activeTab"]
 }

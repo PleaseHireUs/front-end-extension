@@ -22,6 +22,8 @@ if(submitButton){
             "company": company
         };
         let result = JSON.stringify(jsonObject);
+        console.log('checkpoint 1')
         chrome.runtime.sendMessage({message:result,website:website})
+        console.log('checkpoint 2')
     });    
 }
