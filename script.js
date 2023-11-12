@@ -1,5 +1,5 @@
 var ele = document.getElementById("test");
 ele.addEventListener("click", function () {
-  console.log("hii");
-  alert("foo");
+  var newUrl = "localhost:8080/login";
+  chrome.tabs.create({ url: newUrl });
 });
