@@ -1,6 +1,7 @@
 let currentUrl = window.location.href;
 let greenHouseRegex = /https:\/\/boards.greenhouse.io\/.*/;
 let workdayRegex = /.*\.myworkday.*/;
+let tokenRegex = /http:\/\/localhost:8080\/oauthcallback.*/;
 let submitButton;
 let position;
 let time; //This is going to be encoded in a number
@@ -24,18 +25,17 @@ setTimeout(() => {
     document.querySelector(
       'button[data-automation-id="bottom-navigation-next-button"]'
     )
-  ) 
-  {
-    console.log('Bye')
+  ) {
+    console.log("Bye");
     //  && document.querySelector('button[data-automation-id="bottom-navigation-next-button"]').innerHTML == 'Submit')
     company = currentUrl.substring(
       currentUrl.indexOf("://") + 3,
       currentUrl.indexOf(".myworkday") - 4
     );
-    if (company.length == 0){
+    if (company.length == 0) {
       let linkedin = document.querySelector("a[title='LinkedIn']").href;
-      let temp = linkedin.substring(linkedin.indexOf("company")+8);
-      company = temp.substring(0,temp.indexOf('/'))
+      let temp = linkedin.substring(linkedin.indexOf("company") + 8);
+      company = temp.substring(0, temp.indexOf("/"));
     }
     website = "workday";
     position = document
@@ -45,32 +45,21 @@ setTimeout(() => {
       'button[data-automation-id="bottom-navigation-next-button"]'
     );
     currentUrl = currentUrl.substring(0, currentUrl.indexOf("/apply/"));
+  } else if (tokenRegex.test(currentUrl)) {
+    chrome.storage.sync.set({ token: document.body.innerText.trim() });
+    window.close();
   }
   //logic for sending message to service-worker
   if (submitButton) {
     submitButton.addEventListener("click", function () {
-      let currDate = new Date();
-      let dateStr =
-        currDate.getMonth() +
-        1 +
-        "/" +
-        currDate.getDate() +
-        "/" +
-        currDate.getFullYear() +
-        " " +
-        (currDate.getHours() < 10
-          ? "0" + currDate.getHours()
-          : currDate.getHours()) +
-        ":" +
-        (currDate.getMinutes() < 10
-          ? "0" + currDate.getMinutes()
-          : currDate.getMinutes());
-      chrome.runtime.sendMessage({
-        url: currentUrl,
-        website: website,
-        position: position,
-        time: dateStr,
-        company: company
+      chrome.storage.sync.get("token", function (tok) {
+        chrome.runtime.sendMessage({
+          token: tok.token,
+          url: currentUrl,
+          website: website,
+          position: position,
+          company: company,
+        });
       });
     });
   }
