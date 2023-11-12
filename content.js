@@ -1,12 +1,13 @@
 let currentUrl = window.location.href;
 let greenHouseRegex = /https:\/\/boards.greenhouse.io\/.*/;
-let workdayRegex = /.*wd1.myworkdayjobs.com.*/;
+let workdayRegex = /.*\.myworkday.*/;
 let submitButton;
 let position;
 let time; //This is going to be encoded in a number
 let company;
 let website;
 let platform;
+console.log('test2')
 setTimeout(() => {
   if (
     greenHouseRegex.test(currentUrl) &&
@@ -24,12 +25,19 @@ setTimeout(() => {
     document.querySelector(
       'button[data-automation-id="bottom-navigation-next-button"]'
     )
-  ) {
+  ) 
+  {
+    console.log('test3');
     //  && document.querySelector('button[data-automation-id="bottom-navigation-next-button"]').innerHTML == 'Submit')
     company = currentUrl.substring(
       currentUrl.indexOf("://") + 3,
-      currentUrl.indexOf(".wd1.myworkdayjobs.com")
+      currentUrl.indexOf(".myworkday") - 3
     );
+    if (company.length == 0){
+      let linkedin = document.querySelector("a[title='LinkedIn']").href;
+      let temp = linkedin.substring(linkedin.indexOf("company")+8);
+      company = temp.substring(0,temp.indexOf('/'))
+    }
     website = "workday";
     position = document
       .querySelector('h3[class="css-y2pr05"]')
@@ -58,19 +66,12 @@ setTimeout(() => {
         (currDate.getMinutes() < 10
           ? "0" + currDate.getMinutes()
           : currDate.getMinutes());
-      let jsonObject = {
-        url: currentUrl,
-        position: position,
-        time: time,
-        company: company,
-      };
-      let result = JSON.stringify(jsonObject);
       chrome.runtime.sendMessage({
         url: currentUrl,
         website: website,
         position: position,
         time: dateStr,
-        company: company,
+        company: company
       });
     });
   }
