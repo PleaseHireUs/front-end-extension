@@ -20,7 +20,7 @@ setTimeout(()=>{
         website = "workday"
         position = document.querySelector('h3[class="css-y2pr05"]').innerHTML.trim()
         submitButton = document.querySelector('button[data-automation-id="bottom-navigation-next-button"]')
-        currentUrl = currentUrl.substring(0,indexOf('/apply/'))
+        currentUrl = currentUrl.substring(0,currentUrl.indexOf('/apply/'))
     }
     //logic for sending message to service-worker
     if(submitButton){
