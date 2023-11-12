@@ -42,7 +42,22 @@ setTimeout(() => {
   //logic for sending message to service-worker
   if (submitButton) {
     submitButton.addEventListener("click", function () {
-      time = Date.now();
+      let currDate = new Date();
+      let dateStr =
+        currDate.getMonth() +
+        1 +
+        "/" +
+        currDate.getDate() +
+        "/" +
+        currDate.getFullYear() +
+        " " +
+        (currDate.getHours() < 10
+          ? "0" + currDate.getHours()
+          : currDate.getHours()) +
+        ":" +
+        (currDate.getMinutes() < 10
+          ? "0" + currDate.getMinutes()
+          : currDate.getMinutes());
       let jsonObject = {
         url: currentUrl,
         position: position,
@@ -54,7 +69,7 @@ setTimeout(() => {
         url: currentUrl,
         website: website,
         position: position,
-        time: time,
+        time: dateStr,
         company: company,
       });
     });
