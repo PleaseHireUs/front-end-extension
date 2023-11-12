@@ -12,6 +12,9 @@ chrome.tabs.onUpdated.addListener(
             if(website == 'greenhouse' && changeInfo.url.includes('confirmation')){
                 console.log(result)
             }
+            if(website == 'workday' && changeInfo.url.includes('userHome')){
+                console.log(result)
+            }
         }
     }
 );
