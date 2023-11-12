@@ -30,6 +30,9 @@ setTimeout(() => {
       currentUrl.indexOf("://") + 3,
       currentUrl.indexOf(".wd1.myworkdayjobs.com")
     );
+    if(company.length == 0){
+        company = currentUrl.substring(currentUrl.indexOf("en-US")+6)
+    }
     website = "workday";
     position = document
       .querySelector('h3[class="css-y2pr05"]')
