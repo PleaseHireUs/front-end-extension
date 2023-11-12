@@ -53,12 +53,16 @@ setTimeout(() => {
   if (submitButton) {
     submitButton.addEventListener("click", function () {
       chrome.storage.sync.get("token", function (tok) {
-        chrome.runtime.sendMessage({
+        const req = {
           token: tok.token,
           url: currentUrl,
           website: website,
           position: position,
           company: company,
+        };
+        fetch("/addjob", {
+          method: "POST",
+          body: JSON.stringify(req),
         });
       });
     });
