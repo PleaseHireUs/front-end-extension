@@ -6,6 +6,7 @@ let position;
 let time;//This is going to be encoded in a number
 let company;
 let website;
+let platform;
 setTimeout(()=>{
     if(greenHouseRegex.test(currentUrl) && document.querySelector('input[value="Submit Application"]')){
         submitButton = document.querySelector('input[value="Submit Application"]');
@@ -33,7 +34,7 @@ setTimeout(()=>{
                 "company": company
             };
             let result = JSON.stringify(jsonObject);
-            chrome.runtime.sendMessage({message:result,website:website})
+            chrome.runtime.sendMessage({url:currentUrl,website:website,position:position,time:time,company:company})
         });    
     }
     
