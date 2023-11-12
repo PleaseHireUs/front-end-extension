@@ -14,6 +14,7 @@ setTimeout(() => {
     document.querySelector('input[value="Submit Application"]')
   ) {
     submitButton = document.querySelector('input[value="Submit Application"]');
+    if (submitButton == null) return;
     position = document.querySelector("h1").innerHTML.trim();
     company = document
       .querySelector('span[class="company-name"]')
@@ -46,26 +47,23 @@ setTimeout(() => {
     );
     currentUrl = currentUrl.substring(0, currentUrl.indexOf("/apply/"));
   } else if (tokenRegex.test(currentUrl)) {
-    chrome.storage.sync.set({ token: document.body.innerText.trim() });
-    window.close();
+    var tok = document.body.innerText.trim();
+    var newUrl = "localhost:8080/status/" + tok;
+    window.location.href = newUrl;
+    chrome.storage.sync.set({ token: tok });
   }
   //logic for sending message to service-worker
   if (submitButton) {
+    console.log("Submit aquired")
     submitButton.addEventListener("click", function () {
-      chrome.storage.sync.get("token", function (tok) {
-        const req = {
-          token: tok.token,
-          url: currentUrl,
-          website: website,
-          position: position,
-          company: company,
-        };
-        fetch("/addjob", {
-          method: "POST",
-          body: JSON.stringify(req),
-        });
+      chrome.runtime.sendMessage({
+        url: currentUrl,
+        website: website,
+        position: position,
+        company: company,
       });
     });
   }
-}, 5000);
+}
+  , 5000);
 // Make the button correspond to the submit button
