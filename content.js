@@ -7,7 +7,6 @@ let time; //This is going to be encoded in a number
 let company;
 let website;
 let platform;
-console.log('test2')
 setTimeout(() => {
   if (
     greenHouseRegex.test(currentUrl) &&
@@ -27,11 +26,11 @@ setTimeout(() => {
     )
   ) 
   {
-    console.log('test3');
+    console.log('Bye')
     //  && document.querySelector('button[data-automation-id="bottom-navigation-next-button"]').innerHTML == 'Submit')
     company = currentUrl.substring(
       currentUrl.indexOf("://") + 3,
-      currentUrl.indexOf(".myworkday") - 3
+      currentUrl.indexOf(".myworkday") - 4
     );
     if (company.length == 0){
       let linkedin = document.querySelector("a[title='LinkedIn']").href;
